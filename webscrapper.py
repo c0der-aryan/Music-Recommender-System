@@ -7,7 +7,7 @@ from  pytube import Search
 def ytb_url_to_mp3 (url) : 
     yt = YouTube(url)
     video = yt.streams.filter(only_audio = True).first()
-    destination = "./"
+    destination = "mp3_files/"
     out_file = video.download(output_path = destination) 
     base , _  = os.path.splitext(out_file)
     new_file = base + ".mp3"
@@ -18,8 +18,8 @@ url_spotify_api= "https://spotify23.p.rapidapi.com/tracks/"
 querystring = {"ids":"4WNcduiCmDNfmTEz7JvmLv"}
 
 headers = {
-	"x-rapidapi-key": "c3a0ff933cmsh9c6ca83440520f7p1f106ajsn86d70f424094",
-	"x-rapidapi-host": "spotify23.p.rapidapi.com"
+    "x-rapidapi-key": "c3a0ff933cmsh9c6ca83440520f7p1f106ajsn86d70f424094",
+    "x-rapidapi-host": "spotify23.p.rapidapi.com"
 }
 
 response = requests.get(url_spotify_api, headers=headers, params=querystring)
