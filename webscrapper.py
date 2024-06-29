@@ -1,27 +1,20 @@
-from pytube import YouTube
 import os
 import requests
-import json
-from  pytube import Search 
 
-# url = "https://www.youtube.com/watch?v=Yl_thbk40A0"
+from pytube import YouTube
+from  pytube import Search 
 
 def ytb_url_to_mp3 (url) : 
     yt = YouTube(url)
-
     video = yt.streams.filter(only_audio = True).first()
-
     destination = "./"
     out_file = video.download(output_path = destination) 
-
-    base , ext  = os.path.splitext(out_file)
+    base , _  = os.path.splitext(out_file)
     new_file = base + ".mp3"
     os.rename(out_file , new_file)
-    
     return yt.title
 
-url = "https://spotify23.p.rapidapi.com/tracks/"
-
+url_spotify_api= "https://spotify23.p.rapidapi.com/tracks/"
 querystring = {"ids":"4WNcduiCmDNfmTEz7JvmLv"}
 
 headers = {
@@ -29,21 +22,23 @@ headers = {
 	"x-rapidapi-host": "spotify23.p.rapidapi.com"
 }
 
-response = requests.get(url, headers=headers, params=querystring)
-
+response = requests.get(url_spotify_api, headers=headers, params=querystring)
 json_metadata = response.json()
 
+# Extracting song and artist info to search on youtube
 track = json_metadata["tracks"][0]
 song_name = track["name"]
 artists = (artist["name"] for artist in track["artists"])
 
 song_ytb_search = song_name + ", ".join(artists)
 
+# Searching the song on YouTube
 s = Search(song_ytb_search)
 first_result = s.results[0]
 
 url = f"https://www.youtube.com/watch?v={first_result.video_id}"
 
+# download ytb vid as mp3
 name = ytb_url_to_mp3(url)
 print(name)
 """{
