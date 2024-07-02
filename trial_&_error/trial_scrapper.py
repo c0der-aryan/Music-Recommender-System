@@ -220,17 +220,18 @@
 
 
 import requests
-def get_song_lyrics(id) : 
+# def get_song_lyrics(id) : 
 
-    url_spotify_api_lrcs = "https://spotify23.p.rapidapi.com/track_lyrics/"
-    headers = {
-        "x-rapidapi-key": "c3a0ff933cmsh9c6ca83440520f7p1f106ajsn86d70f424094",
-        "x-rapidapi-host": "spotify23.p.rapidapi.com"
-    }
+#     url_spotify_api_lrcs = "https://spotify23.p.rapidapi.com/track_lyrics/"
+#     headers = {
+#         "x-rapidapi-key": "c3a0ff933cmsh9c6ca83440520f7p1f106ajsn86d70f424094",
+#         "x-rapidapi-host": "spotify23.p.rapidapi.com"
+#     }
 
-    song_lyrics = requests.get(url_spotify_api_lrcs, headers=headers, params={"id" : id})
-    song_lrcs_json = song_lyrics.json()
+#     song_lyrics = requests.get(url_spotify_api_lrcs, headers=headers, params={"id" : id})
+#     song_lrcs_json = song_lyrics.json()
 
-    lrcs = " ".join([i["words"] for i in song_lrcs_json["lyrics"]["lines"]])
-    return lrcs
-print(get_song_lyrics("4n7jnSxVLd8QioibtTDBDq"))
+#     lrcs = " ".join([i["words"] for i in song_lrcs_json["lyrics"]["lines"]])
+#     return lrcs
+# print(get_song_lyrics("4n7jnSxVLd8QioibtTDBDq"))
+
