@@ -75,24 +75,30 @@ def song_info_loader(id) :
     song_info.update(final_analysis)
     return song_info
 
-# pprint(song_info_loader("4n7jnSxVLd8QioibtTDBDq"))
-
+# import time 
+# c = time.time()
+pprint(song_info_loader("4n7jnSxVLd8QioibtTDBDq"))
+# f = time.time()
+# print(f-c)
 # pprint(song_info_loader("0TK2YIli7K1leLovkQiNik"))
 
 # id = "4n7jnSxVLd8QioibtTDBDq"
 # print(get_song_lyrics(id))
 
-ids = ["4n7jnSxVLd8QioibtTDBDq" , "0TK2YIli7K1leLovkQiNik" , "4cktbXiXOapiLBMprHFErI" , "2Sl7H4cPHwg0rfNJu9N4eO" ]
+# ids = ["4n7jnSxVLd8QioibtTDBDq" , "0TK2YIli7K1leLovkQiNik" , "4cktbXiXOapiLBMprHFErI" , "2Sl7H4cPHwg0rfNJu9N4eO" ]
 
-import pandas as pd
+# import pandas as pd
 # data = []
 # cnt = 0
 # for id in ids :
 #     print(cnt)
+#     c = time.time()
 #     data.append(song_info_loader(id))
+#     f = time.time()
+#     print(f-c)
 #     cnt+=1
 # df = pd.DataFrame(data)
 # df.to_csv('music_data.csv', index=False)
 
-data = pd.read_csv('music_data.csv')
-print(data.head())
+# data = pd.read_csv('music_data.csv')
+# print(data.head())

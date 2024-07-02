@@ -13,7 +13,6 @@ if len(sys.argv) > 1:
 else:
     tid = 'spotify:track:4n7jnSxVLd8QioibtTDBDq'
 
-
 features = ["danceability" , "energy" , "loudness" , "acousticness" , "instrumentalness" , "liveness" , "tempo"]
 analysis = sp.audio_features(tid)[0]
 track = sp.track(tid)
