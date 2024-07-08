@@ -1,0 +1,30 @@
+import time
+import torch
+
+import librosa
+
+from openunmix import predict 
+from IPython.display import Audio, display
+
+file_path_1  = "mp3_files/On My Way.wav"
+file_path_2  = "mp3_files/In Control.wav"
+
+y , sr = librosa.load(file_path_1)[:50]
+
+device = "mps"
+
+print("start")
+
+estimates = predict.separate (
+    torch.as_tensor(y).float(),
+    rate = sr,
+    device = device 
+)
+
+c = time.time()
+for target, estimate in estimates.items():
+    print(target)
+    audio = estimate.detach().cpu().numpy()[0]
+    display(Audio(audio, rate = sr))
+f = time.time()
+print(f-c)

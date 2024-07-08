@@ -2,6 +2,8 @@ import os
 
 from pytube import YouTube
 from  pytube import Search 
+from pydub import AudioSegment
+
 
 import librosa
 import matplotlib.pyplot as plt
@@ -45,7 +47,16 @@ song_info = {'acousticness': 0.0209,
  'sentiments': [0.511660099029541, 0, 0.4057457447052002, 0, 0, 0, 0],
  'tempo': 170.087}
 
-def ytb_url_to_wav (url) : 
+
+def convert_to_wav(input_path, output_path):
+    audio = AudioSegment.from_file(input_path)
+    destination = "wav_files/"
+    wav_output_path = destination + '.wav'
+    audio.export(wav_output_path, format='wav')
+    return wav_output_path
+
+
+def ytb_url_to_mp3 (url) : 
     song_ytb_search =  (song_info["name"] + " " + ", ".join(song_info["artists"]))
     s = Search(song_ytb_search)
     first_result = s.results[0]
@@ -56,15 +67,20 @@ def ytb_url_to_wav (url) :
     destination = "mp3_files/"
     out_file = video.download(output_path = destination) 
     base , _  = os.path.splitext(out_file)
-    new_file = base + ".wav"
+    new_file = base + ".mp3"
     os.rename(out_file , new_file)
+    return new_file
+
+def ytb_url_to_wav (url) : 
+    file_path = ytb_url_to_mp3(url)
+
     return new_file
 
 def get_mel_spec(song_info) : 
     file_path = ytb_url_to_wav(song_info)
 
-    scale , sr = librosa.load(file_path)
-    mel_spectogram = librosa.feature.melspectrogram(y=scale , sr = sr , n_fft = 2048 , hop_length=512, n_mels = 10, )
+    y , sr = librosa.load(file_path)
+    mel_spectogram = librosa.feature.melspectrogram(y=y , sr = sr , n_fft = 2048 , hop_length=512, n_mels = 10, )
     log_mel_spectogram = librosa.power_to_db(mel_spectogram)
 
     plt.figure(figsize = (25,10))
