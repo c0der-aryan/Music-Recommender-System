@@ -10,4 +10,13 @@ print(json.dumps(data[10], indent=4))  # Pretty-print with indentation
 
 data_pt = data[10]
 
-print(data_pt["SongIDs"])
+song_ids = data_pt["SongIDs"]
+ids_to_compare = song_ids[:-1]
+to_compare = song_ids[-1]
+
+for i in ids_to_compare : 
+    # find that id in file 
+    # apply the sim score 
+    # if we have lyrics available then use sim funt 1 
+    # else use sim func 2
+    pass
