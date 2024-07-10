@@ -59,19 +59,20 @@ class GenreRecommender():
     def genreLoss(self,songid1 , songid2):
         a1 = set(self.graph.neighbors(songid1))
         a2 = set(self.graph.neighbors(songid2))
-        return 1.5 * np.exp(-3/2*len(a1.intersection(a2)))
+        return np.exp(-3/2*len(a1.intersection(a2)))
 
 id1 = "0VjIjW4GlUZAMYd2vXMi3b"  
 id2 = "1bDbXMyjaUIooNwFE9wn0N"
 
 genre_rec = GenreRecommender()
-genre_loss = genre_rec.genreLoss(id1, id2)
+genre_loss = genre_rec.genreLoss(id1, id1)
 
+print(genre_loss)
 sp_analysis_loss_list = ["danceability","energy","key","loudness","mode","speechiness","acousticness","instrumentalness","liveness","valence","tempo"]
 
 def individual_index_similarity(vec1, vec2):
     similarities = [abs(a - b) / max(abs(a), abs(b)) if max(abs(a), abs(b)) != 0 else 1 for a, b in zip(vec1, vec2)]
-    return similarities
+    return np.mean(similarities)
 
 df = pd.read_csv("/Users/aryansood/Github/Music-Recommender-System/song_data/output_file.csv")
 for index , row in df.iterrows():
@@ -81,6 +82,12 @@ for index , row in df.iterrows():
         sp_analysis_2 = [row[i] for i in sp_analysis_loss_list]
     else : break
 
-print(sp_analysis_1)
-print(sp_analysis_2)
-print(individual_index_similarity(sp_analysis_1 , sp_analysis_2))
+# print(sp_analysis_1)
+# print(sp_analysis_1)
+# print(individual_index_similarity(sp_analysis_1 , sp_analysis_1))
+
+# print()
+
+# print(sp_analysis_1)
+# print(sp_analysis_2)
+# print(individual_index_similarity(sp_analysis_1 , sp_analysis_2))
