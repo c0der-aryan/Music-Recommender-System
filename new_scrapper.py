@@ -12,10 +12,7 @@ load_dotenv()
 SPOTIPY_CLIENT_ID = os.getenv('SPOTIPY_CLIENT_ID')
 SPOTIPY_CLIENT_SECRET = os.getenv('SPOTIPY_CLIENT_SECRET')
 # RAPID_API_KEY = os.getenv('RAPID_API_KEY')
-RAPID_API_KEY = '9b26345b0bmsh1c2507c6907e090p167f5ejsn8d07cf522582'
-RAPID_API_KEYS = ["c3a0ff933cmsh9c6ca83440520f7p1f106ajsn86d70f424094",
-                  "2dc6ff46e1msh3a45f918ceff202p19e4b0jsn4927726f0857",
-                  ]
+RAPID_API_KEY = 'put_here'
 
 API_KEY_INDEX = 0
 
