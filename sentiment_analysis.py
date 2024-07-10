@@ -16,17 +16,16 @@ df = df.loc[: ,required_cols]
 
 
 # Initialize Transformers pipeline and tokenizer
-pipe = pipeline("text-classification", model="j-hartmann/emotion-english-distilroberta-base", device=0)
+pipe = pipeline("text-classification", model="j-hartmann/emotion-english-distilroberta-base", device=0 , top_k = 7)
 tokenizer = AutoTokenizer.from_pretrained("j-hartmann/emotion-english-distilroberta-base")
 
 def sentiments (lrcs) : 
     tokens = tokenizer(lrcs, truncation=True, max_length=512, return_tensors="pt")
     truncated_lrcs = tokenizer.decode(tokens.input_ids[0], skip_special_tokens=True)
-    output = pipe(truncated_lrcs)
-    scores = {i["label"]: i["score"] for i in output if i["score"] > 0.1}
+    output = pipe(truncated_lrcs)[0]
+    scores = {i["label"] : i["score"] for i in output}
     lst = ["anger", "disgust", "fear", "joy", "neutral", "sadness", "surprise"]
     sentiments = [scores.get(key, 0) for key in lst]
-    # sentiments = []
     return sentiments
 
 for index , row in df.iterrows() : 
@@ -35,8 +34,10 @@ for index , row in df.iterrows() :
         df.loc[index , "sentiments" ] = str([0,0,0,0,0,0,0])
         continue
     df.loc[index , "sentiments" ] = str(sentiments(lrcs))
-    print(f"current song : {index}\r")
+
+    print(f"current song : {index}", end = "\r")
     if index % 10 == 0: 
         df.to_pickle("sentiment_data.pkl")
-        print( " "*50 , f"Concatenated and saved {index} songs\r")
+        print( " "*50 , f"Concatenated and saved {index} songs" , end = "\r")
 
+df.to_pickle("sentiment_data.pkl")
