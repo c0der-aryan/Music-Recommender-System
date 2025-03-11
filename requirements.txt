@@ -1,5 +1,5 @@
 pytube == 15.0.0
-spotipy == 2.24.0
+spotipy == 2.25.1
 transformers
 Pyaudio
 BeatNet
